@@ -22,7 +22,7 @@ const LiveChat = () => {
 
   return (
     <div className="flex flex-col">
-      <div className=" border-2 w-[370px] h-[470px] border-black m-3 rounded-lg overflow-y-hidde overflow-y-scroll">
+      <div className=" border-2 sm:w-[370px] w-[300px] h-[470px] border-black m-3 rounded-lg overflow-y-hidde overflow-y-scroll">
         {chat.map((chat) => {
           return (
             <ul className="flex items-center gap-2 m-2 p-2 rounded-2xl bg-blue-200">

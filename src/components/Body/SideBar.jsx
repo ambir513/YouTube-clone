@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 const SideBar = () => {
   const toggle = useSelector((store) => store.app);
   return (
-    <div className="fixed bg-white left-0 top-14 h-full pr-3 z-40">
+    <div className="sm:flex sm:flex-col hidden fixed bg-white left-0 top-14 h-full pr-3 z-40">
       {toggle.isMenuOpen ? (
         <div className={`w-[200px] h-full pt-3`}>
           <div className="flex flex-col">

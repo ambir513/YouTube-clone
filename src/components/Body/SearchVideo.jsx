@@ -11,8 +11,8 @@ const SearchVideo = () => {
   console.log(search);
   return (
     <div
-      className={`flex flex-wrap items-center cursor-pointer mt-32 ${
-        toggle.isMenuOpen ? "ml-56" : "ml-26"
+      className={`flex flex-wrap justify-center items-center cursor-pointer mt-32 ${
+        toggle.isMenuOpen ? "sm:ml-56" : "sm:ml-26"
       }`}
     >
       {search.length !== 0

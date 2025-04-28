@@ -12,30 +12,28 @@ const WatchPage = () => {
   return (
     <div
       className={`mt-24 ${
-        toggle.isMenuOpen ? "ml-56" : "ml-32"
-      } flex justify-between gap-2 rounded-lg`}
+        toggle.isMenuOpen ? "sm:ml-56" : "sm:ml-32"
+      } flex sm:flex-row flex-col sm:justify-between sm:gap-2 justify-center sm:items-start items-center rounded-lg`}
     >
-      <div className="flex justify-center gap-4">
-        <div className="">
+      <div className="sm:flex flex justify-center sm:justify-center items-center sm:gap-4">
+        <div className="sm:flex flex  flex-col sm:items-start items-center">
           <iframe
-            width="853"
-            height="480"
             src={`https://www.youtube.com/embed/${id}?autoplay=1&si=uMInOPXxB7qddXyn`}
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
-            className="rounded-xl"
+            className="rounded-xl sm:w-[853px] sm:h-[480px] w-[355px]  h-[256px]"
           ></iframe>
           <div className="p-3">
             <Comment />
           </div>
         </div>
-
-        <div className="flex flex-col gap-3"></div>
       </div>
-      <LiveChat />
+      <div className="w-[300px]">
+        <LiveChat />
+      </div>
     </div>
   );
 };

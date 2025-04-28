@@ -10,14 +10,14 @@ const VideoCart = ({ video }) => {
   return (
     <Link
       to={`/watch/${video.id.videoId || video.id}`}
-      className={`${toggle.isMenuOpen ? " w-[350px]" : " w-[300px]"} m-5`}
+      className={`${toggle.isMenuOpen ? " w-[350px]" : " w-[300px]"} sm:m-5 m-2 mb-3`}
       onClick={() => dispatch(toggleMenu())}
     >
       <img
         src={snippet?.thumbnails?.high?.url}
         alt=""
         className={`${
-          toggle.isMenuOpen ? "w=[457px]" : "w=[327px]"
+          toggle.isMenuOpen ? "w-[457px]" : "w-[327px]"
         } h-[256px] rounded-xl`}
       />
       <div className="flex gap-4 items-center">

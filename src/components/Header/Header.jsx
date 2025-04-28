@@ -66,30 +66,32 @@ const Header = () => {
 
   return (
     <header className="w-full h-[60px] pt-3 z-50  px-4 shadow-lg fixed bg-white left-0">
-      <nav className="grid grid-flow-col gap-2">
+      <nav className="flex gap-5 sm:grid sm:grid-flow-col">
         {/* Section 1 */}
         <div className="flex items-center col-span-8 gap-2">
           <div
-            className="ml-3 p-2 cursor-pointer hover:rounded-full hover:bg-black/10"
+            className="sm:flex hidden ml-3 p-2 cursor-pointer hover:rounded-full hover:bg-black/10"
             onClick={() => dispatch(toggleMenu())}
           >
             <GiHamburgerMenu size={22} />
           </div>
-          <div className="flex justify-center items-center overflow-hidden w-[120px] h-10 cursor-pointer">
-            <img
-              src="https://www.pngplay.com/wp-content/uploads/9/Youtube-Logo-Transparent-PNG.png"
-              alt="YouTube-logo"
-              className="w-[150px]"
-            />
-          </div>
+          <Link to="/">
+            <div className="flex justify-center items-center overflow-hidden w-[120px] h-10 cursor-pointer">
+              <img
+                src="https://www.pngplay.com/wp-content/uploads/9/Youtube-Logo-Transparent-PNG.png"
+                alt="YouTube-logo"
+                className="w-[150px]"
+              />
+            </div>
+          </Link>
         </div>
         {/* Section 2 */}
         <div className="flex items-center gap-2 col-span-10">
-          <div className="w-[500px] flex justify-between border-1 border-black/30 rounded-2xl">
+          <div className="sm:w-[500px] w-[210px] flex justify-between border-1 border-black/30 rounded-2xl">
             <input
               type="text"
               placeholder="Search"
-              className="border-none focus:outline-none px-4 py-1 w-[455px]"
+              className="border-none focus:outline-none px-4 py-1 sm:w-[455px] w-[155px]"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -102,7 +104,7 @@ const Header = () => {
           </div>
         </div>
         {/* Section 3 */}
-        <div className="flex items-center cursor-pointer">
+        <div className="sm:flex hidden items-center cursor-pointer">
           <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-lg">
             A
           </div>
