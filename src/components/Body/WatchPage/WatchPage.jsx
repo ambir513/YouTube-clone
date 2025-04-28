@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Comment from "./Comment";
-import LiveChat from "./liveChat";
+import LiveChat from "./LiveChat";
 
 const WatchPage = () => {
   const { id } = useParams();
