@@ -46,12 +46,7 @@ const comments = [
     name: "Jayesh Singh",
     text: "Let goo 🚀",
     reply: [],
-  },
-  {
-    name: "Rahul Mishra",
-    text: "mera mu me lo bhailog",
-    reply: [],
-  },
+  }
 ];
 
 const CommentContainer = ({ comments }) => {
