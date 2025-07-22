@@ -30,7 +30,7 @@ const VideoContainer = () => {
         <ShimmerUI />
       ) : (
         <div
-          className={`flex flex-wrap justify-center items-center cursor-pointer mt-32 ${
+          className={`flex flex-wrap justify-center items-center cursor-pointer sm:mt-32 mt-24 ${
             toggle.isMenuOpen ? "sm:ml-20" : "sm:ml-8"
           }`}
         >

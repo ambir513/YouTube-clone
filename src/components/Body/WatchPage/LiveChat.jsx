@@ -2,67 +2,85 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addChat } from "../../../utils/chatSlice";
 import { generateRandomName, generateRandomText } from "../../../utils/helper";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 const LiveChat = () => {
   const dispatch = useDispatch();
   const chat = useSelector((store) => store.chat.message);
-  const [text, setText] = useState("");
+  const [text, setText] = useState([]);
+  const VITE_API_KEY = import.meta.env.VITE_API_KEY;
+  const { id } = useParams();
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      console.log("hii");
-      dispatch(
-        addChat({
-          name: generateRandomName(),
-          text: generateRandomText(10),
-        })
-      );
-    }, 1000);
-    return () => clearInterval(timer);
+    const filter = chat?.filter((com) => com?.id === id);
+    if (filter.length == 0) {
+      console.log("noavailable");
+      getcomments();
+    } else {
+      console.log("available");
+      setText(filter);
+      return;
+    }
   }, []);
+
+  async function getcomments() {
+    try {
+      const res = await axios(
+        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${id}&key=${VITE_API_KEY}&maxResults=50`
+      );
+      const fetchedComments = res.data.items.map((item) => {
+        const snippet = item.snippet.topLevelComment.snippet;
+        return {
+          id: item.id,
+          author: snippet.authorDisplayName,
+          authorImage: snippet.authorProfileImageUrl,
+          text: snippet.textDisplay,
+        };
+      });
+      dispatch(addChat({ id: id, comments: fetchedComments }));
+      setText([{ id: id, comments: fetchedComments }]);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="flex flex-col">
-      <div className=" border-2 sm:w-[370px] w-[300px] h-[470px] border-black m-3 rounded-lg overflow-y-hidde overflow-y-scroll">
-        {chat.map((chat) => {
+      {console.log(text)}
+      <ul className="h-fit flex flex-col gap-4">
+        {text[0]?.comments?.map((com, index) => {
           return (
-            <ul className="flex items-center gap-2 m-2 p-2 rounded-2xl bg-blue-200">
-              <img
-                src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
-                alt="logo"
-                className="w-8 rounded-full"
-              />
-              <li className="font-semibold">{chat.name}</li>
-              <li>{chat.text}</li>
-            </ul>
+            <li
+              key={index}
+              className="flex items-center gap-3 bg-blue-200 px-2 rounded-2xl py-3 lg:w-[830px] md:w-[500px] w-[290px] h-fit"
+            >
+              <p className="flex gap-3">
+                <p>
+                  <a
+                    href={`https://www.youtube.com/${com?.author}`}
+                    target="_blank"
+                  >
+                    <img
+                      src={com.authorImage}
+                      alt="logo"
+                      className="rounded-full"
+                    />
+                  </a>
+                </p>
+                <p className="">
+                  <a
+                    href={`https://www.youtube.com/${com?.author}`}
+                    target="_blank"
+                  >
+                    <p className="text-sm">{com?.author}</p>
+                  </a>
+                  <p className="md:w-full w-[280px]">{com?.text}</p>
+                </p>
+              </p>
+            </li>
           );
         })}
-      </div>
-      <form
-        className="ml-3"
-        onSubmit={(e) => {
-          e.preventDefault();
-          dispatch(
-            addChat({
-              name: "Amar Biradar",
-              text: text,
-            })
-          );
-          setText("");
-        }}
-      >
-        <input
-          type="text"
-          className="border-2 border-black px-3 rounded-md"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <button
-          className="bg-green-500 px-4 py-1 text-white rounded-lg ml-3"
-          type="submit"
-        >
-          send
-        </button>
-      </form>
+      </ul>
     </div>
   );
 };

@@ -10,8 +10,9 @@ const VideoCart = ({ video }) => {
   return (
     <Link
       to={`/watch/${video.id.videoId || video.id}`}
-      className={`${toggle.isMenuOpen ? " w-[350px]" : " w-[300px]"} sm:m-5 m-2 mb-3`}
-      onClick={() => dispatch(toggleMenu())}
+      className={`${
+        toggle.isMenuOpen ? " w-[350px]" : " w-[300px]"
+      } sm:m-5 m-2 mb-3`}
     >
       <img
         src={snippet?.thumbnails?.high?.url}
