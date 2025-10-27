@@ -34,12 +34,14 @@ const Header = () => {
 
   const getSearchSuggestion = async () => {
     try {
-      const response = await axios.get(YOUTUBE_SEARCH_API + searchQuery);
-      console.log("get");
-      setSuggestionData(response?.data[1]);
+      const response = await axios.get(
+        YOUTUBE_SEARCH_API + searchQuery + "&key=" + VITE_API_KEY
+      );
+      console.log(response.data?.items);
+      setSuggestionData(response.data?.items);
       dispatch(
         addSearchData({
-          [searchQuery]: response?.data[1],
+          [searchQuery]: response.data?.items,
         })
       );
     } catch (error) {
@@ -120,13 +122,16 @@ const Header = () => {
             {suggestionData.map((suggestion, index) => {
               return (
                 <Link
-                  to={`/${suggestion}`}
+                  to={`/watch/${suggestion?.id?.videoId}`}
                   key={index}
-                  onClick={() => handleGetSearchData(suggestion)}
+                  onClick={() => {
+                    searchQuery("");
+                    handleGetSearchData(suggestion?.id?.videoId);
+                  }}
                 >
                   <li className="cursor-pointer p-1 hover:bg-black/10 text-sm flex items-center gap-3">
                     <IoSearchOutline />
-                    {suggestion}
+                    {suggestion?.snippet?.title}
                   </li>
                 </Link>
               );
